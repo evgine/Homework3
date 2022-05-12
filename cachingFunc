@@ -1,0 +1,13 @@
+function cachingFunc(func){
+    const m = new Map();
+
+    return function(){
+        let key = [].slice.call(arguments).join('');
+        if(m.has(key)){
+            return m.get(key);
+        }
+        let result = func.apply(this, arguments);
+        m.set(key, result);
+        return result;
+    }
+}
